@@ -29,6 +29,13 @@ public class StudentRepository {
     }
 
     public List<Student> findAll(){
-        return new ArrayList<>();
+        String sql = "select * from student";
+        return jdbcTemplate.query(sql, (rs, rowNum)->{
+            Student s = new Student();
+            s.setRollNo(rs.getInt("rollno"));
+            s.setName(rs.getString("name"));
+            s.setMarks(rs.getInt("marks"));
+            return s;
+        });
     }
 }
